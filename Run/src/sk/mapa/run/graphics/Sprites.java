@@ -6,7 +6,7 @@ import sk.mapa.run.graphics.tile.Sky;
 
 public final class Sprites {
 
-    public static final Dirt dirt = Dirt.getInstance();
-    public static final Grass grass = Grass.getInstance();
-    public static final Sky sky = Sky.getInstance();
+	public static final Dirt dirt = Dirt.getInstance();
+	public static final Grass grass = Grass.getInstance();
+	public static final Sky sky = Sky.getInstance();
 }

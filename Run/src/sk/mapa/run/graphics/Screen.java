@@ -11,139 +11,139 @@ import sk.mapa.run.graphics.tile.Tile;
  */
 public class Screen {
 
-    /**
-     * Visible screen width. Should be the same as window width.
-     */
-    private int width;
+	/**
+	 * Visible screen width. Should be the same as window width.
+	 */
+	private int width;
 
-    /**
-     * Visible screen height. Should be the same as window height.
-     */
-    private int height;
+	/**
+	 * Visible screen height. Should be the same as window height.
+	 */
+	private int height;
 
-    /**
+	/**
      * 
      */
-    private Random rnd = new Random();
+	private Random rnd = new Random();
 
-    /**
-     * Visible contents of the screen.
-     */
-    public int[] pixels;
+	/**
+	 * Visible contents of the screen.
+	 */
+	public int[] pixels;
 
-    /**
-     * Tiles of the game.
-     */
-    private int[] tiles;
+	/**
+	 * Tiles of the game.
+	 */
+	private int[] tiles;
 
-    /**
-     * Parameric constructor. Sets pixels and tiles arrays.
-     * 
-     * @param width - visible screen width
-     * @param height - visible screen height
-     */
-    public Screen(int width, int height) {
-	this.width = width;
-	this.height = height;
+	/**
+	 * Parameric constructor. Sets pixels and tiles arrays.
+	 * 
+	 * @param width - visible screen width
+	 * @param height - visible screen height
+	 */
+	public Screen(int width, int height) {
+		this.width = width;
+		this.height = height;
 
-	pixels = new int[width * height];
-	tiles = new int[Constants.MAP_WIDTH * Constants.MAP_HEIGHT];
+		pixels = new int[width * height];
+		tiles = new int[Constants.MAP_WIDTH * Constants.MAP_HEIGHT];
 
-    }
-
-    /**
-     * Clears the screen. Paints the screen with black colour.
-     */
-    public void clear() {
-	for (int i = 0; i < pixels.length; i++) {
-	    pixels[i] = 0;
 	}
-    }
 
-    /**
-     * Renders the screen.
-     */
-    public void render(int xOffset, int yOffset) {
-	for (int y = 0; y < height; y++) {
-	    int yy = y + yOffset;
-	    if (yy < 0 || yy >= height)
-		continue;
-	    for (int x = 0; x < width; x++) {
-		int xx = x + xOffset;
-		if (xx < 0 || xx >= width)
-		    continue;
-		// pixels[xx + yy * width] = Sky.getInstance().getPixels()[((x &
-		// Constants.TILE_MASK) + (y & Constants.TILE_MASK)
-		// * Constants.TILE_SIZE)];
-		pixels[xx + yy * width] = Sprites.sky.getPixels()[((x & Constants.TILE_MASK) + (y & Constants.TILE_MASK)
-			* Constants.TILE_SIZE)];
-	    }
+	/**
+	 * Clears the screen. Paints the screen with black colour.
+	 */
+	public void clear() {
+		for (int i = 0; i < pixels.length; i++) {
+			pixels[i] = 0;
+		}
 	}
-    }
 
-    /**
-     * Renders Tile at specified position.
-     * 
-     * @param xPos - horizontal Tile position
-     * @param yPos - vertical Tile position
-     * @param tile - Tile to be rendered
-     */
-    public void renderTile(int xPos, int yPos, Tile tile) {
-	int size = tile.getSprite().getSIZE();
-
-	for (int y = 0; y < size; y++) {
-	    for (int x = 0; x < size; x++) {
-		pixels[x + y * width] = tile.getSprite().getPixels()[x + y * size];
-	    }
+	/**
+	 * Renders the screen.
+	 */
+	public void render(int xOffset, int yOffset) {
+		for (int y = 0; y < height; y++) {
+			int yy = y + yOffset;
+			if (yy < 0 || yy >= height)
+				continue;
+			for (int x = 0; x < width; x++) {
+				int xx = x + xOffset;
+				if (xx < 0 || xx >= width)
+					continue;
+				// pixels[xx + yy * width] = Sky.getInstance().getPixels()[((x &
+				// Constants.TILE_MASK) + (y & Constants.TILE_MASK)
+				// * Constants.TILE_SIZE)];
+				pixels[xx + yy * width] = Sprites.sky.getPixels()[((x & Constants.TILE_MASK) + (y & Constants.TILE_MASK)
+						* Constants.TILE_SIZE)];
+			}
+		}
 	}
-    }
 
-    // G + S
-    public int getWidth() {
-	return width;
-    }
+	/**
+	 * Renders Tile at specified position.
+	 * 
+	 * @param xPos - horizontal Tile position
+	 * @param yPos - vertical Tile position
+	 * @param tile - Tile to be rendered
+	 */
+	public void renderTile(int xPos, int yPos, Tile tile) {
+		int size = tile.getSprite().getSIZE();
 
-    public void setWidth(int width) {
-	this.width = width;
-    }
+		for (int y = 0; y < size; y++) {
+			for (int x = 0; x < size; x++) {
+				pixels[x + y * width] = tile.getSprite().getPixels()[x + y * size];
+			}
+		}
+	}
 
-    public int getHeight() {
-	return height;
-    }
+	// G + S
+	public int getWidth() {
+		return width;
+	}
 
-    public void setHeight(int height) {
-	this.height = height;
-    }
+	public void setWidth(int width) {
+		this.width = width;
+	}
 
-    public Random getRnd() {
-	return rnd;
-    }
+	public int getHeight() {
+		return height;
+	}
 
-    public void setRnd(Random rnd) {
-	this.rnd = rnd;
-    }
+	public void setHeight(int height) {
+		this.height = height;
+	}
 
-    public int[] getPixels() {
-	return pixels;
-    }
+	public Random getRnd() {
+		return rnd;
+	}
 
-    public void setPixels(int[] pixels) {
-	this.pixels = pixels;
-    }
+	public void setRnd(Random rnd) {
+		this.rnd = rnd;
+	}
 
-    public void setPixel(int position, int value) {
-	pixels[position] = value;
-    }
+	public int[] getPixels() {
+		return pixels;
+	}
 
-    public int getPixel(int position) {
-	return pixels[position];
-    }
+	public void setPixels(int[] pixels) {
+		this.pixels = pixels;
+	}
 
-    public int[] getTiles() {
-	return tiles;
-    }
+	public void setPixel(int position, int value) {
+		pixels[position] = value;
+	}
 
-    public void setTiles(int[] tiles) {
-	this.tiles = tiles;
-    }
+	public int getPixel(int position) {
+		return pixels[position];
+	}
+
+	public int[] getTiles() {
+		return tiles;
+	}
+
+	public void setTiles(int[] tiles) {
+		this.tiles = tiles;
+	}
 }
