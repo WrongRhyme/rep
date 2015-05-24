@@ -80,6 +80,7 @@ public class Game extends Canvas implements Runnable {
 				timer = now;
 			}
 		}
+
 		stop();
 	}
 
