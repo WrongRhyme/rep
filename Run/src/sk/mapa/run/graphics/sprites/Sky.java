@@ -1,10 +1,9 @@
-package sk.mapa.run.graphics.tile;
+package sk.mapa.run.graphics.sprites;
 
-import sk.mapa.run.Constants;
-import sk.mapa.run.graphics.Sprite;
+import sk.mapa.run.Const;
 import sk.mapa.run.graphics.SpriteSheet;
 
-public class Sky extends Sprite {
+public final class Sky extends Sprite {
 
 	private static Sky sky;
 
@@ -14,7 +13,7 @@ public class Sky extends Sprite {
 
 	public static Sky getInstance() {
 		if (sky == null) {
-			sky = new Sky(Constants.TILE_SIZE, 2, 0, SpriteSheet.getInstance(getPath(), Constants.SPRITE_SHEET_SIZE));
+			sky = new Sky(Const.TILE_SIZE, 2, 0, SpriteSheet.getInstance(getPath(), Const.SPRITE_SHEET_SIZE));
 		}
 
 		return sky;

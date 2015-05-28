@@ -1,10 +1,9 @@
-package sk.mapa.run.graphics.tile;
+package sk.mapa.run.graphics.sprites;
 
-import sk.mapa.run.Constants;
-import sk.mapa.run.graphics.Sprite;
+import sk.mapa.run.Const;
 import sk.mapa.run.graphics.SpriteSheet;
 
-public class Dirt extends Sprite {
+public final class Dirt extends Sprite {
 
 	private static Dirt dirt;
 
@@ -14,7 +13,7 @@ public class Dirt extends Sprite {
 
 	public static Dirt getInstance() {
 		if (dirt == null) {
-			dirt = new Dirt(Constants.TILE_SIZE, 0, 0, SpriteSheet.getInstance(getPath(), Constants.SPRITE_SHEET_SIZE));
+			dirt = new Dirt(Const.TILE_SIZE, 0, 0, SpriteSheet.getInstance(getPath(), Const.SPRITE_SHEET_SIZE));
 		}
 
 		return dirt;

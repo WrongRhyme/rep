@@ -1,6 +1,7 @@
-package sk.mapa.run.graphics;
+package sk.mapa.run.graphics.sprites;
 
-import sk.mapa.run.Constants;
+import sk.mapa.run.Const;
+import sk.mapa.run.graphics.SpriteSheet;
 
 /**
  * Root class for game Sprites.
@@ -54,16 +55,27 @@ public abstract class Sprite {
 		load();
 	}
 
+	protected Sprite(int size, int colour) {
+		SIZE = size;
+		pixels = new int[SIZE * SIZE];
+		setColour(colour);
+	}
+
+	private void setColour(int colour) {
+		for (int i = 0; i < pixels.length; i++) {
+			pixels[i] = colour;
+		}
+	}
+
 	private void load() {
 		for (int y = 0; y < SIZE; y++) {
 			for (int x = 0; x < SIZE; x++) {
-				pixels[x + y * SIZE] = spriteSheet.getPixel((this.x + x) + (this.y + y) * Constants.SPRITE_SHEET_SIZE);
+				pixels[x + y * SIZE] = spriteSheet.getPixel((this.x + x) + (this.y + y) * Const.SPRITE_SHEET_SIZE);
 			}
 		}
 	}
 
 	// G + S
-
 	public static String getPath() {
 		return path;
 	}

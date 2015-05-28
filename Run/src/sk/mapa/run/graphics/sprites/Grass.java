@@ -1,10 +1,9 @@
-package sk.mapa.run.graphics.tile;
+package sk.mapa.run.graphics.sprites;
 
-import sk.mapa.run.Constants;
-import sk.mapa.run.graphics.Sprite;
+import sk.mapa.run.Const;
 import sk.mapa.run.graphics.SpriteSheet;
 
-public class Grass extends Sprite {
+public final class Grass extends Sprite {
 
 	private static Grass grass;
 
@@ -14,8 +13,7 @@ public class Grass extends Sprite {
 
 	public static Grass getInstance() {
 		if (grass == null) {
-			grass = new Grass(Constants.TILE_SIZE, 1, 0,
-					SpriteSheet.getInstance(getPath(), Constants.SPRITE_SHEET_SIZE));
+			grass = new Grass(Const.TILE_SIZE, 1, 0, SpriteSheet.getInstance(getPath(), Const.SPRITE_SHEET_SIZE));
 		}
 
 		return grass;

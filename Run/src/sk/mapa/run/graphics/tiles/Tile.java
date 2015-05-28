@@ -1,6 +1,7 @@
-package sk.mapa.run.graphics.tile;
+package sk.mapa.run.graphics.tiles;
 
-import sk.mapa.run.graphics.Sprite;
+import sk.mapa.run.graphics.Screen;
+import sk.mapa.run.graphics.sprites.Sprite;
 
 public class Tile {
 	private int x;
@@ -10,18 +11,14 @@ public class Tile {
 	/**
 	 * Parametric constructor.
 	 * 
-	 * @param x - horizontal position of the Sprite in the SpriteSheet
-	 * @param y - vertical position of the Sprite in the SpriteSheet
 	 * @param sprite - Sprite to be rendered as a Tile
 	 */
-	public Tile(int x, int y, Sprite sprite) {
-		this.x = x;
-		this.y = y;
+	public Tile(Sprite sprite) {
 		this.sprite = sprite;
 	}
 
-	public void render() {
-
+	public void render(int x, int y, Screen screen) {
+		screen.renderTile(x << 5, y << 5, this);
 	}
 
 	// G + S

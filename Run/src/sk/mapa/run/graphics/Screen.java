@@ -2,8 +2,9 @@ package sk.mapa.run.graphics;
 
 import java.util.Random;
 
-import sk.mapa.run.Constants;
-import sk.mapa.run.graphics.tile.Tile;
+import sk.mapa.run.Const;
+import sk.mapa.run.graphics.sprites.Sprite;
+import sk.mapa.run.graphics.tiles.Tile;
 
 /**
  * Represents the contents rendered and displayed in the game window.
@@ -36,6 +37,9 @@ public class Screen {
 	 */
 	private int[] tiles;
 
+	private int xOffset;
+	private int yOffset;
+
 	/**
 	 * Parameric constructor. Sets pixels and tiles arrays.
 	 * 
@@ -47,7 +51,7 @@ public class Screen {
 		this.height = height;
 
 		pixels = new int[width * height];
-		tiles = new int[Constants.MAP_WIDTH * Constants.MAP_HEIGHT];
+		tiles = new int[Const.MAP_WIDTH * Const.MAP_HEIGHT];
 
 	}
 
@@ -61,39 +65,46 @@ public class Screen {
 	}
 
 	/**
-	 * Renders the screen.
-	 */
-	public void render(int xOffset, int yOffset) {
-		for (int y = 0; y < height; y++) {
-			int yy = y + yOffset;
-			if (yy < 0 || yy >= height)
-				continue;
-			for (int x = 0; x < width; x++) {
-				int xx = x + xOffset;
-				if (xx < 0 || xx >= width)
-					continue;
-				// pixels[xx + yy * width] = Sky.getInstance().getPixels()[((x &
-				// Constants.TILE_MASK) + (y & Constants.TILE_MASK)
-				// * Constants.TILE_SIZE)];
-				pixels[xx + yy * width] = Sprites.sky.getPixels()[((x & Constants.TILE_MASK) + (y & Constants.TILE_MASK)
-						* Constants.TILE_SIZE)];
-			}
-		}
-	}
-
-	/**
 	 * Renders Tile at specified position.
 	 * 
-	 * @param xPos - horizontal Tile position
-	 * @param yPos - vertical Tile position
+	 * @param xPos - horizontal Tile position (in pixels)
+	 * @param yPos - vertical Tile position (in pixels)
 	 * @param tile - Tile to be rendered
 	 */
 	public void renderTile(int xPos, int yPos, Tile tile) {
-		int size = tile.getSprite().getSIZE();
+		int xAbs;
+		int yAbs;
+		int tileSize = tile.getSprite().getSIZE();
 
-		for (int y = 0; y < size; y++) {
-			for (int x = 0; x < size; x++) {
-				pixels[x + y * width] = tile.getSprite().getPixels()[x + y * size];
+		xPos -= xOffset;
+		yPos -= yOffset;
+
+		for (int y = 0; y < tileSize; y++) {
+			yAbs = y + yPos;
+			for (int x = 0; x < tileSize; x++) {
+				xAbs = x + xPos;
+				if (xAbs < -tileSize || xAbs >= width || yAbs < 0 || yAbs >= height) {
+					break;
+				}
+
+				if (xAbs < 0) {
+					xAbs = 0;
+				}
+
+				pixels[xAbs + yAbs * width] = tile.getSprite().getPixels()[x + y * tileSize];
+			}
+		}
+
+	}
+
+	public void renderPlayer(int xPos, int yPos, Sprite sprite) {
+		for (int y = 0; y < Const.PLAYER_SIZE; y++) {
+			for (int x = 0; x < Const.PLAYER_SIZE; x++) {
+				int colour = sprite.getPixels()[x + y * Const.PLAYER_SIZE];
+				if (colour != 0xFFFF00DC) {
+					pixels[xPos + x + (yPos + y) * width] = colour;
+				}
+
 			}
 		}
 	}
@@ -145,5 +156,10 @@ public class Screen {
 
 	public void setTiles(int[] tiles) {
 		this.tiles = tiles;
+	}
+
+	public void setOffset(int xOffset, int yOffset) {
+		this.xOffset = xOffset;
+		this.yOffset = yOffset;
 	}
 }

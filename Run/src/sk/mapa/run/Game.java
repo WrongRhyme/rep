@@ -10,10 +10,13 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 
 import sk.mapa.run.graphics.Screen;
+import sk.mapa.run.graphics.level.Level;
+import sk.mapa.run.graphics.player.Player;
 import sk.mapa.run.input.Keyboard;
 
 /**
  * Main project class, represents game itself.
+ * 
  */
 public class Game extends Canvas implements Runnable {
 
@@ -23,27 +26,29 @@ public class Game extends Canvas implements Runnable {
 	private JFrame frame;
 	private boolean running = false;
 	private Screen screen;
+	private Level level;
 	private Keyboard key;
+	private Player player;
 	private int xOffset;
 	private int yOffset;
 
 	/**
 	 * Represents rendered image of the game.
 	 */
-	private BufferedImage image = new BufferedImage(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT,
-			BufferedImage.TYPE_INT_RGB);
+	private BufferedImage image = new BufferedImage(Const.WINDOW_WIDTH, Const.WINDOW_HEIGHT, BufferedImage.TYPE_INT_RGB);
 	/**
 	 * Array of pixels displayed on the screen.
 	 */
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 
 	public Game() {
-		Dimension size = new Dimension(Constants.WINDOW_WIDTH * Constants.SCALE, Constants.WINDOW_HEIGHT
-				* Constants.SCALE);
+		Dimension size = new Dimension(Const.WINDOW_WIDTH * Const.SCALE, Const.WINDOW_HEIGHT * Const.SCALE);
 		setPreferredSize(size);
 
-		frame = new JFrame(Constants.gameTitle);
-		screen = new Screen(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+		frame = new JFrame(Const.gameTitle);
+		screen = new Screen(Const.WINDOW_WIDTH, Const.WINDOW_HEIGHT);
+		level = new Level(20, 15);
+		player = new Player(key);
 		key = new Keyboard();
 
 		addKeyListener(key);
@@ -64,17 +69,17 @@ public class Game extends Canvas implements Runnable {
 			delta += (now - lastTime);
 			lastTime = now;
 
-			if (delta >= Constants.FRAME_TIME) {
+			if (delta >= Const.FRAME_TIME) {
 				update();
 				updates++;
-				delta -= Constants.FRAME_TIME;
+				delta -= Const.FRAME_TIME;
 			}
 
 			render();
 			frames++;
 
-			if ((now - timer) > Constants.NS) {
-				frame.setTitle(Constants.gameTitle + "  |  FPS: " + frames + ", Updates: " + updates);
+			if ((now - timer) > Const.NS) {
+				frame.setTitle(Const.gameTitle + "  |  FPS: " + frames + ", Updates: " + updates);
 				updates = 0;
 				frames = 0;
 				timer = now;
@@ -85,7 +90,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public synchronized void start() {
-		thread = new Thread(this, Constants.MAIN_THREAD_NAME);
+		thread = new Thread(this, Const.MAIN_THREAD_NAME);
 		thread.start();
 		running = true;
 	}
@@ -114,7 +119,10 @@ public class Game extends Canvas implements Runnable {
 		Graphics graphics = bufferStrategy.getDrawGraphics();
 		// ///////////////////////////////////////////////////
 		screen.clear();
-		screen.render(xOffset, yOffset);
+		// screen.render(xOffset, yOffset);
+		level.render(xOffset, yOffset, screen);
+		player.render(screen);
+
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];// getPixel(i);
 			// System.out.println("Game: [" + i + "] = " + pixels[i]);
@@ -131,17 +139,19 @@ public class Game extends Canvas implements Runnable {
 	 */
 	public void update() {
 		key.update();
+		player.update();
+
 		if (key.isUp()) {
-			yOffset++;
-		}
-		if (key.isDown()) {
 			yOffset--;
 		}
+		if (key.isDown()) {
+			yOffset++;
+		}
 		if (key.isLeft()) {
-			xOffset++;
+			xOffset--;
 		}
 		if (key.isRight()) {
-			xOffset--;
+			xOffset++;
 		}
 
 	}
