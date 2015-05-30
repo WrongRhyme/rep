@@ -13,7 +13,7 @@ public final class Dirt extends Sprite {
 
 	public static Dirt getInstance() {
 		if (dirt == null) {
-			dirt = new Dirt(Const.TILE_SIZE, 0, 0, SpriteSheet.getInstance(getPath(), Const.SPRITE_SHEET_SIZE));
+			dirt = new Dirt(Const.TILE_SIZE, 0, 0, SpriteSheet.getInstance(getPath()));
 		}
 
 		return dirt;

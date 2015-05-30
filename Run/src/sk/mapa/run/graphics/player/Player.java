@@ -19,6 +19,8 @@ public class Player {
 	public Player(Keyboard key) {
 		this.sprite = Sprites.player0;
 		this.input = key;
+		xPos = Const.WINDOW_WIDTH / 2 - Const.PLAYER_SIZE / 2;
+		yPos = Const.WINDOW_HEIGHT / 2 - Const.PLAYER_SIZE / 2;
 	}
 
 	public void update() {
@@ -41,6 +43,6 @@ public class Player {
 			this.sprite = PlayerSprite.getInstance(2);
 		}
 
-		screen.renderPlayer(100, 100, sprite);
+		screen.renderPlayer(xPos, yPos, sprite);
 	}
 }

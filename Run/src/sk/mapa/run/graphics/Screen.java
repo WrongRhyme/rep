@@ -32,11 +32,6 @@ public class Screen {
 	 */
 	public int[] pixels;
 
-	/**
-	 * Tiles of the game.
-	 */
-	private int[] tiles;
-
 	private int xOffset;
 	private int yOffset;
 
@@ -51,8 +46,6 @@ public class Screen {
 		this.height = height;
 
 		pixels = new int[width * height];
-		tiles = new int[Const.MAP_WIDTH * Const.MAP_HEIGHT];
-
 	}
 
 	/**
@@ -83,15 +76,15 @@ public class Screen {
 			yAbs = y + yPos;
 			for (int x = 0; x < tileSize; x++) {
 				xAbs = x + xPos;
-				if (xAbs < -tileSize || xAbs >= width || yAbs < 0 || yAbs >= height) {
+				if (xAbs < -tileSize || xAbs >= width || yAbs < 0 || yAbs >= height)
 					break;
-				}
 
-				if (xAbs < 0) {
+				if (xAbs < 0)
 					xAbs = 0;
-				}
 
-				pixels[xAbs + yAbs * width] = tile.getSprite().getPixels()[x + y * tileSize];
+				int colour = tile.getSprite().getPixels()[x + y * tileSize];
+				if (colour != Const.TRANSPARENT_COLOUR)
+					pixels[xAbs + yAbs * width] = colour;
 			}
 		}
 
@@ -101,7 +94,7 @@ public class Screen {
 		for (int y = 0; y < Const.PLAYER_SIZE; y++) {
 			for (int x = 0; x < Const.PLAYER_SIZE; x++) {
 				int colour = sprite.getPixels()[x + y * Const.PLAYER_SIZE];
-				if (colour != 0xFFFF00DC) {
+				if (colour != Const.TRANSPARENT_COLOUR) {
 					pixels[xPos + x + (yPos + y) * width] = colour;
 				}
 
@@ -148,14 +141,6 @@ public class Screen {
 
 	public int getPixel(int position) {
 		return pixels[position];
-	}
-
-	public int[] getTiles() {
-		return tiles;
-	}
-
-	public void setTiles(int[] tiles) {
-		this.tiles = tiles;
 	}
 
 	public void setOffset(int xOffset, int yOffset) {

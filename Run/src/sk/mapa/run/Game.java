@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 
 import sk.mapa.run.graphics.Screen;
 import sk.mapa.run.graphics.level.Level;
+import sk.mapa.run.graphics.level.Level1;
 import sk.mapa.run.graphics.player.Player;
 import sk.mapa.run.input.Keyboard;
 
@@ -47,7 +48,7 @@ public class Game extends Canvas implements Runnable {
 
 		frame = new JFrame(Const.gameTitle);
 		screen = new Screen(Const.WINDOW_WIDTH, Const.WINDOW_HEIGHT);
-		level = new Level(20, 15);
+		level = new Level1(Const.PATH_LEVEL1);
 		player = new Player(key);
 		key = new Keyboard();
 

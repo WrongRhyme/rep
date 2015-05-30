@@ -17,22 +17,19 @@ public class PlayerSprite extends Sprite {
 		switch (phase) {
 			case (0):
 				if (player0 == null) {
-					player0 = new PlayerSprite(Const.PLAYER_SIZE, 0, 1, SpriteSheet.getInstance(getPath(),
-							Const.SPRITE_SHEET_SIZE));
+					player0 = new PlayerSprite(Const.PLAYER_SIZE, 0, 1, SpriteSheet.getInstance(getPath()));
 				}
 				return player0;
 
 			case (1):
 				if (player1 == null) {
-					player1 = new PlayerSprite(Const.PLAYER_SIZE, 0, 2, SpriteSheet.getInstance(getPath(),
-							Const.SPRITE_SHEET_SIZE));
+					player1 = new PlayerSprite(Const.PLAYER_SIZE, 0, 2, SpriteSheet.getInstance(getPath()));
 				}
 				return player1;
 
 			case (2):
 				if (player2 == null) {
-					player2 = new PlayerSprite(Const.PLAYER_SIZE, 0, 3, SpriteSheet.getInstance(getPath(),
-							Const.SPRITE_SHEET_SIZE));
+					player2 = new PlayerSprite(Const.PLAYER_SIZE, 0, 3, SpriteSheet.getInstance(getPath()));
 				}
 				return player2;
 

@@ -13,7 +13,7 @@ public final class Sky extends Sprite {
 
 	public static Sky getInstance() {
 		if (sky == null) {
-			sky = new Sky(Const.TILE_SIZE, 2, 0, SpriteSheet.getInstance(getPath(), Const.SPRITE_SHEET_SIZE));
+			sky = new Sky(Const.TILE_SIZE, 2, 0, SpriteSheet.getInstance(getPath()));
 		}
 
 		return sky;

@@ -10,7 +10,7 @@ public abstract class Sprite {
 	/**
 	 * Path to SpriteSheet file containing Sprite.
 	 */
-	private static String path = "/textures/spritesheet.bmp";
+	private static String path = Const.PATH_SPRITESHEET;
 
 	/**
 	 * Sprite size (width and height) in pixels.

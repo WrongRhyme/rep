@@ -13,7 +13,7 @@ public final class Grass extends Sprite {
 
 	public static Grass getInstance() {
 		if (grass == null) {
-			grass = new Grass(Const.TILE_SIZE, 1, 0, SpriteSheet.getInstance(getPath(), Const.SPRITE_SHEET_SIZE));
+			grass = new Grass(Const.TILE_SIZE, 1, 0, SpriteSheet.getInstance(getPath()));
 		}
 
 		return grass;
